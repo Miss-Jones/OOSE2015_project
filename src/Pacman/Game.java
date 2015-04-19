@@ -5,17 +5,17 @@ import org.newdawn.slick.state.*;
 public class Game extends StateBasedGame {
 	
 	/**
-	 * gamename is the name of the game
-	 * menu is an int that saves the number of that state
-	 * play is an int that saves the number of that state
+	 * gamename is the name of the game <br>
+	 * menu is an int that saves the number of that state  <br>
+	 * play is an int that saves the number of that state  <br>
 	 */
 	public static final String gamename = "Pacman";
 	public static final int menu = 0;
 	public static final int play = 1;
 	
 	/**
-	 * Takes the gamename as input, and set the superclass gamename
-	 * also add two states, 0 and 1.
+	 * Takes the gamename as input, and set the superclass gamename <br>
+	 * also add two states, 0 and 1. <br>
 	 * @param gamename the String: The name of the game
 	 */
 	public Game(String gamename){
@@ -36,8 +36,8 @@ public class Game extends StateBasedGame {
 	}
 	
 	/**
-	 * The main, makes a new appcontainer, with the gamename
-	 * Sets the display mode and starts the appclication
+	 * The main, makes a new appcontainer, with the gamename <br>
+	 * Sets the display mode and starts the appclication <br>
 	 * @param args
 	 */
 	public static void main(String[] args) {
