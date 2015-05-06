@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="34" height="27" tilewidth="32" tileheight="32" nextobjectid="1">
+ <tileset firstgid="1" name="tile_back" tilewidth="32" tileheight="32">
+  <image source="tile_back.jpg" width="32" height="32"/>
+ </tileset>
+ <tileset firstgid="2" name="tile_border" tilewidth="32" tileheight="32">
+  <image source="tile_border.jpg" width="32" height="32"/>
+ </tileset>
+ <tileset firstgid="3" name="tile_col" tilewidth="32" tileheight="32">
+  <image source="tile_col.jpg" width="32" height="32"/>
+ </tileset>
+ <tileset firstgid="4" name="tile_door" tilewidth="32" tileheight="32">
+  <image source="tile_door.jpg" width="32" height="32"/>
+ </tileset>
+ <tileset firstgid="5" name="coin" tilewidth="32" tileheight="32">
+  <image source="coin.png" width="32" height="32"/>
+ </tileset>
+ <layer name="background" width="34" height="27">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA+3DsQkAMAgAMAX/v7lDnXxAhwQSAQBf9U05AgD3PR2uLq9YDgAA
+  </data>
+ </layer>
+ <layer name="coinPath" width="34" height="27">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA+1UQQ7AIAjb/v/pXY1pawtz8TCTZRGkFC1c13nrDr9uHONQtXdikc+pY3UfCZbLEdXMcqEzDi7zKQ0kGKON8U0wGF6iYZWjwuMrjBN0qvihGpQWnbo7PFJ97ODB9tWzVR7uDNp9H5V+2c3D1cXbPNJe6/anOzcqs8adH2oejLZ0nrr4o2+lhdk2x67i5jyKC/qjGlJfot1UEyjO0YrDgcWgmhm282aKB7MlWme6WOVSONU3cLH+df56AF1CZVVYDgAA
+  </data>
+ </layer>
+ <layer name="collider" width="34" height="27">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA+1VQQ7DIAyD7f9/3g6dxCLbcULRLkOy2gJJHDeEOcZ4/gjzjceFec11xsdf15bxQJyd+a5tV4+4D+lR8eXqEWPFJ4rvaOXwQP5ZDOY/2jG+GQ+mR2U4mnZ5dPWo8nByjN9312klx6wWmU1E5MGg6tfJd82bocpD1W6my508UK5q7iSP6nk5zUONHR7ZeVljOHBtqv1j57yo9eyeW993+6nqN0oPVQvdfop8qn6KbLLe4K4hn4qHyisOZMf2ITvnv6BY7EygtSw3p06Rpixmxk357dz7lX/g7qv0sZNYefzxjRdkIihZWA4AAA==
+  </data>
+ </layer>
+ <layer name="powerup" width="34" height="27">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA+3WQREAAAjDsOHfNAYQwO0SA/02+WVKWwAA0MCvc1k/8hj/WA4AAA==
+  </data>
+ </layer>
+</map>
