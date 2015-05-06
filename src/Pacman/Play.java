@@ -145,7 +145,6 @@ public class Play extends BasicGameState {
                         g.setColor(Color.yellow);
                         g.draw(player.getPathHitbox()[i]);
                 }*/
-                g.draw(player.getHitBox());
                
         }
        

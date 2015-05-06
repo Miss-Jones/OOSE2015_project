@@ -23,7 +23,7 @@ public class Player extends Entity {
                 this.posX = x;
                 this.posY = y;
                 this.name = n;
-                this.MAXcoins = 324;
+                this.MAXcoins = 328;
                 try {
                         this.diesound = new Sound("data/sounds/pacmanDie.ogg");
                 } catch (SlickException e) {
