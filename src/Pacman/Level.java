@@ -62,9 +62,7 @@ public class Level {
  
         }
        
-       /* Collision with player, needed for later.
-        * 
-        * public boolean collision(Player p){
+        public boolean collision(Player p){
                 Shape rect[] = this.GetHitbox();
                 for(int i = 0; i<this.count;i++){
                         if(p.getHitBox().intersects(rect[i])){
@@ -72,7 +70,7 @@ public class Level {
                         }
         }
                 return false;
-        }*/
+        }
        
         /*
        
