@@ -174,8 +174,8 @@ public class Play extends BasicGameState {
                         boolLeft = false;
                         boolRight = true;
                 }
-               
- 
+        }//Remove later
+ /*
                 if(boolUp){
                         player.SetSprite(player.GetAniUp());
                         player.MoveUp();
@@ -207,7 +207,7 @@ public class Play extends BasicGameState {
                        
                 }
         }
-       
+       */
        
         @Override
         public int getID(){
