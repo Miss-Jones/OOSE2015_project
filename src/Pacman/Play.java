@@ -22,7 +22,7 @@ public class Play extends BasicGameState {
         Image powerUp;
        
        
-        private static final int MAX_PATH_LENGTH = 100;
+    private static final int MAX_PATH_LENGTH = 100;
     Path path;
     AStarPathFinder pathFinder;
     SimpleMap map;
@@ -38,9 +38,7 @@ public class Play extends BasicGameState {
         public Play(int state){
         }
        
-        /**
-         *
-         */
+        
         @Override
         public void init(GameContainer gc, StateBasedGame sbg)throws SlickException{
                 coin = new Image("data/map/coin.png");
@@ -210,11 +208,9 @@ public class Play extends BasicGameState {
                 }
         }
        
-        /**
-         *
-         */
+       
         @Override
         public int getID(){
-                return 1;
+        	return 1;
         }
 }

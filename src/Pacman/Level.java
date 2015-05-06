@@ -16,7 +16,8 @@ public class Level {
        
         Level(){
         }
- 
+        
+       
         public void SetMap(String m){
                 this.mapName = m;
                 try {
@@ -27,14 +28,18 @@ public class Level {
                         System.out.println("Could not initiate Tiled Map");
                 }
         }
+        
+        
         public TiledMap GetMap(){
                 return this.map;
         }
-       
+        
+        
         public String GetMapName(){
                 return this.mapName;
         }
        
+        
         public void SetHitBox(String h){
                 this.count = 0;
                 this.hitboxLayer = this.map.getLayerIndex(h);
@@ -49,19 +54,23 @@ public class Level {
                 }
         }
        
+       
         public int GetIndexLayer(){
                 return this.hitboxLayer;
         }
+       
        
         public Shape[] GetHitbox(){
                 return this.hitbox;
         }
        
+        
         public boolean[][] GetBlocked(){
-                                return this.blocked;
+                return this.blocked;
  
         }
        
+        
         public boolean collision(Player p){
                 Shape rect[] = this.GetHitbox();
                 for(int i = 0; i<this.count;i++){
@@ -137,10 +146,12 @@ public class Level {
                 }
                 return false;
         }*/
-       
+        
         public int GetHeight(){
                 return this.map.getHeight();
         }      
+        
+    
         public int GetWidth(){
                 return this.map.getWidth();
         }

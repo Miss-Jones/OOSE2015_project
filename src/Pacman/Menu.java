@@ -83,7 +83,8 @@ public class Menu extends BasicGameState {
 	}
 	
 	/**
-	 * 
+	 * returns the integer getID <br>
+     * This is an override function 
 	 */
 	@Override
 	public int getID(){
