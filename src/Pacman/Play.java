@@ -9,7 +9,7 @@ import org.newdawn.slick.util.pathfinding.Path;
  
 public class Play extends BasicGameState {
        
-        Player player = new Player(2*32,1*32,3,"Player1");
+        Player player = new Player(15*32,14*32,3,"Player1");
         Enemy ghost1 = new Enemy(448,384);
         Enemy ghost2 = new Enemy(480,384);
         Enemy ghost3 = new Enemy(512,384);
@@ -17,12 +17,11 @@ public class Play extends BasicGameState {
         Level collisionLevel = new Level();
         Level coinLevel = new Level();
         Level powerLevel = new Level();
-        private boolean boolUp, boolDown, boolLeft, boolRight;
         Image coin;
         Image powerUp;
        
        
-    private static final int MAX_PATH_LENGTH = 100;
+        private static final int MAX_PATH_LENGTH = 100;
     Path path;
     AStarPathFinder pathFinder;
     SimpleMap map;
@@ -38,23 +37,28 @@ public class Play extends BasicGameState {
         public Play(int state){
         }
        
-        
+        /**
+         *
+         */
         @Override
         public void init(GameContainer gc, StateBasedGame sbg)throws SlickException{
-                coin = new Image("data/map/coin.png");
-                powerUp = new Image("data/map/Powerup.png");
                 collisionLevel.SetMap("data/map/map.tmx");
                 collisionLevel.SetHitBox("collider");
+               
+                coin = new Image("data/map/coin.png");
                 coinLevel.SetMap("data/map/map.tmx");
                 coinLevel.SetHitBox("coinPath");
+               
+                powerUp = new Image("data/map/Powerup.png");
                 powerLevel.SetMap("data/map/map.tmx");
                 powerLevel.SetHitBox("powerup");
+               
                 player.SetAniUp("data/pacman/PacmanUp1.png","data/pacman/PacmanUp2.png","data/pacman/PacmanBallUpDown.png");
                 player.SetAniDown("data/pacman/PacmanDown1.png", "data/pacman/PacmanDown2.png", "data/pacman/PacmanBallUpDown.png");
                 player.SetAniLeft("data/pacman/PacmanLeft1.png","data/pacman/PacmanLeft2.png","data/pacman/PacmanBallLeftRight.png");
                 player.SetAniRight("data/pacman/PacmanRight1.png", "data/pacman/PacmanRight2.png", "data/pacman/PacmanBallLeftRight.png");
-                player.SetSprite(player.GetAniUp());
-                boolRight = true;
+                player.SetSprite(player.GetAniRight());
+                player.SetPath(collisionLevel);
                
                 ghost1.SetAniUp("data/ghost/red/GhostUp1.png","data/ghost/red/GhostUp2.png","data/ghost/red/GhostUp1.png");
                 ghost1.SetAniDown("data/ghost/red/GhostDown1.png","data/ghost/red/GhostDown2.png","data/ghost/red/GhostDown1.png");
@@ -114,11 +118,10 @@ public class Play extends BasicGameState {
                 ghost4.GetSprite().draw(ghost4.GetPosX(),ghost4.GetPosY());
                 player.GetSprite().draw(player.GetPosX(),player.GetPosY());
                
-                for(int i = 0; i < ghost1.getPathLenght(); i++) {
+                /*for(int i = 0; i < ghost1.getPathLenght(); i++) {
                         g.setColor(Color.red);
                         g.draw(ghost1.getPathHitbox()[i]);
         }
-               
                 for(int i = 0; i<ghost2.getPathLenght();i++){
                         g.setColor(Color.cyan);
                         g.draw(ghost2.getPathHitbox()[i]);
@@ -131,7 +134,10 @@ public class Play extends BasicGameState {
                         g.setColor(Color.pink);
                         g.draw(ghost4.getPathHitbox()[i]);
                 }
-               
+                for(int i = 0; i<player.getPathLenght();i++){
+                        g.setColor(Color.yellow);
+                        g.draw(player.getPathHitbox()[i]);
+                }*/
                
         }
        
@@ -143,74 +149,41 @@ public class Play extends BasicGameState {
         public void update(GameContainer gc, StateBasedGame sbg, int delta)throws SlickException{
                 ghost1.movePath(collisionLevel);
                 ghost1.Move(delta, gc.getHeight(), gc.getWidth());
+                ghost1.GetSprite().update(delta);
+               
                 ghost2.movePath(collisionLevel);
                 ghost2.Move(delta, gc.getHeight(), gc.getWidth());
+                ghost2.GetSprite().update(delta);
+               
                 ghost3.movePath(collisionLevel);
                 ghost3.Move(delta, gc.getHeight(), gc.getWidth());
+                ghost3.GetSprite().update(delta);
+               
                 ghost4.movePath(collisionLevel);
                 ghost4.Move(delta, gc.getHeight(), gc.getWidth());
-                player.GetSprite().update(delta);
+                ghost4.GetSprite().update(delta);
+               
+                player.movePath(collisionLevel);
                 player.Move(delta,gc.getHeight(),gc.getWidth());
+                player.GetSprite().update(delta);
                
                 Input input = gc.getInput();
                 if(input.isKeyPressed(Input.KEY_UP)){
-                        boolUp = true;
-                        boolDown = false;
-                        boolLeft = false;
-                        boolRight = false;
+                        player.GoStepUp(coinLevel.GetMap(),coinLevel.GetIndexLayer());
                 }else if(input.isKeyPressed(Input.KEY_DOWN)){
-                        boolUp = false;
-                        boolDown = true;
-                        boolLeft = false;
-                        boolRight = false;
+                        player.GoStepDown(coinLevel.GetMap(),coinLevel.GetIndexLayer());
                 }else if(input.isKeyPressed(Input.KEY_LEFT)){
-                        boolUp = false;
-                        boolDown = false;
-                        boolLeft = true;
-                        boolRight = false;
+                        player.GoStepLeft(coinLevel.GetMap(),coinLevel.GetIndexLayer());
                 }else if(input.isKeyPressed(Input.KEY_RIGHT)){
-                        boolUp = false;
-                        boolDown = false;
-                        boolLeft = false;
-                        boolRight = true;
-                }
-        }//Remove later
- /*
-                if(boolUp){
-                        player.SetSprite(player.GetAniUp());
-                        player.MoveUp();
-                        if(collisionLevel.collision(player)){
-                                boolUp = false;
-                                player.StopUpDown();
-                        }
-                }else if(boolDown){
-                        player.SetSprite(player.GetAniDown());
-                        player.MoveDown();
-                        if(collisionLevel.collision(player)){
-                                boolDown = false;
-                                player.StopUpDown();
-                        }
-                }else if(boolLeft){
-                        player.SetSprite(player.GetAniLeft());
-                        player.MoveLeft();
-                        if(collisionLevel.collision(player)){
-                                boolLeft = false;
-                                player.StopLeftRight();
-                        }                      
-                }else if(boolRight){
-                        player.SetSprite(player.GetAniRight());
-                        player.MoveRight();
-                        if(collisionLevel.collision(player)){
-                                boolRight = false;
-                                player.StopLeftRight();
-                        }
-                       
+                        player.GoStepRight(coinLevel.GetMap(),coinLevel.GetIndexLayer());
                 }
         }
-       */
        
+        /**
+         *
+         */
         @Override
         public int getID(){
-        	return 1;
+                return 1;
         }
 }
