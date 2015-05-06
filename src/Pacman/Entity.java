@@ -24,7 +24,7 @@ public class Entity {
 	protected Image[] imageLeft = new Image[3];
 	protected Image[] imageRight = new Image[3];
 	protected Animation sprite,up,down,left,right;
-	private int maxPathLength = 200;
+	protected int maxPathLength = 100;
     Path path;
     AStarPathFinder pathFinder;
     SimpleMap map;
@@ -40,6 +40,7 @@ public class Entity {
 		this.randomGen = new Random();
 		this.speedX = 0;
 		this.speedY = 0;
+		this.rand = new Random();
 		for(int i = 0; i<3; i++){
 			this.anidur[i] = 200;
 		}
@@ -47,10 +48,6 @@ public class Entity {
 	
 	public Shape getHitBox(){
 		return new Rectangle((int)this.GetPosX(),(int)this.GetPosY(),32,32);
-	}
-	
-	public Shape getHitBox(int offsetX, int offsetY){
-		return new Rectangle((int)this.GetPosX()+offsetX,(int)this.GetPosY()+offsetY,32,32);
 	}
 	
 	public void Move(int del, int height, int width){
@@ -96,6 +93,7 @@ public class Entity {
 	public float GetPosX(){
 		return this.posX;
 	}
+	
 	public float GetPosY(){
 		return this.posY;
 	}
@@ -127,6 +125,7 @@ public class Entity {
 			System.out.println("Could not initialize UP Animation images");
 		}
 	}
+	
 	public Animation GetAniUp(){
 		return this.up;
 	}
@@ -142,6 +141,7 @@ public class Entity {
 			System.out.println("Could not initialize DOWN Animation images");
 		}
 	}
+	
 	public Animation GetAniDown(){
 		return this.down;
 	}
@@ -158,6 +158,7 @@ public class Entity {
 			System.out.println("Could not initialize LEFT Animation images");
 		}
 	}
+	
 	public Animation GetAniLeft(){
 		return this.left;
 	}
@@ -173,6 +174,7 @@ public class Entity {
 			System.out.println("Could not initialize RIGHT Animation images");
 		}
 	}
+	
 	public Animation GetAniRight(){
 		return this.right;
 	}
@@ -195,14 +197,14 @@ public class Entity {
 		}else{
 			this.anidur = a;
 		}
-		
 	}
+	
 	public void SetTargetPos(TiledMap map, int collisionLayerId){
-		this.TargetposY = (int)rand.nextInt(map.getHeight());
-		this.TargetposX = (int)rand.nextInt(map.getWidth());
+		this.TargetposY = (int)this.rand.nextInt(map.getHeight());
+		this.TargetposX = (int)this.rand.nextInt(map.getWidth());
 		while(map.getTileId(this.TargetposX, this.TargetposY, collisionLayerId)!=0||(this.posX/32==this.TargetposX&&this.posY/32==this.TargetposY)){
-			this.TargetposY = (int)rand.nextInt(map.getHeight());
-			this.TargetposX = (int)rand.nextInt(map.getWidth());
+			this.TargetposY = (int)this.rand.nextInt(map.getHeight());
+			this.TargetposX = (int)this.rand.nextInt(map.getWidth());
 	}
 	
 }
