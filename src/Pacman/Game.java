@@ -3,7 +3,7 @@ import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
 
 public class Game extends StateBasedGame {
-	
+	//
 	/**
 	 * gamename is the name of the game <br>
 	 * menu is an int that saves the number of that state  <br>
