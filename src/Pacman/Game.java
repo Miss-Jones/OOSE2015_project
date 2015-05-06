@@ -12,7 +12,8 @@ public class Game extends StateBasedGame {
 	public static final String gamename = "Pacman";
 	public static final int menu = 0;
 	public static final int play = 1;
-	public static final int highscore = 2;
+	public static final int endwin = 2;
+	public static final int endlose = 3;
 	
 	/**
 	 * Takes the gamename as input, and set the superclass gamename <br>
@@ -23,7 +24,8 @@ public class Game extends StateBasedGame {
 		super(gamename);
 		this.addState(new Menu(menu));
 		this.addState(new Play(play));
-		this.addState(new Highscore(highscore));
+		this.addState(new Endwin(endwin));
+		this.addState(new Endlose(endlose));
 	}
 	
 	/**
@@ -33,7 +35,8 @@ public class Game extends StateBasedGame {
 	public void initStatesList(GameContainer gc) throws SlickException {
 		this.getState(menu).init(gc,this);
 		this.getState(play).init(gc,this);
-		this.getState(highscore).init(gc,this);
+		this.getState(endwin).init(gc,this);
+		this.getState(endlose).init(gc,this);
 		this.enterState(menu);
 		
 	}
@@ -54,5 +57,7 @@ public class Game extends StateBasedGame {
 		}
 
 	}
+
+
 
 }
