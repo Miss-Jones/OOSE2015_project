@@ -32,7 +32,7 @@ public class Endwin extends BasicGameState {
             InputStream inputStream = ResourceLoader.getResourceAsStream("data/fonts/heavy_data.ttf");
              
             Font awtFont2 = Font.createFont(Font.TRUETYPE_FONT, inputStream);
-            awtFont2 = awtFont2.deriveFont(92f); // set font size
+            awtFont2 = awtFont2.deriveFont(70f); // set font size
             font2 = new TrueTypeFont(awtFont2, false);
                  
         } catch (Exception e) {
@@ -50,7 +50,7 @@ public class Endwin extends BasicGameState {
 		endwin.draw(0,0);
 		playagainB.draw(386,570);
 		menuB.draw(456,625);
-		font2.drawString(410, 425, ""+Score.getScore(), Color.white);
+		font2.drawString(435, 435, ""+Score.getScore(), Color.white);
 		
 	}
 
