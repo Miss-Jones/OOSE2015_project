@@ -8,7 +8,6 @@ public class Menu extends BasicGameState {
 
 	Image pacman;
 	Image playB;
-	Image highscoreB;
 	Image exitB;
 	private Music startSound;
 	/**
@@ -25,7 +24,6 @@ public class Menu extends BasicGameState {
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException{	
 		pacman = new Image("data/fonts/pacman.png");
 		playB = new Image("data/fonts/playB.png");
-		highscoreB = new Image("data/fonts/highscoreB.png");
 		exitB = new Image("data/fonts/exitgameB.png");
 		sbg.enterState(0);
 	}
@@ -37,8 +35,7 @@ public class Menu extends BasicGameState {
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)throws SlickException{
 		pacman.draw(262,125); 
 		playB.draw(361, 450); //Image size is 298x36
-		highscoreB.draw(370, 550); //Image size is 282x36
-		exitB.draw(369,650); //Image size is 288x36
+		exitB.draw(370, 550); //Image size is 282x36
 	}
 	
 	/**
@@ -62,16 +59,6 @@ public class Menu extends BasicGameState {
 			playB = new Image("data/fonts/playB.png");
 		}
 		if((posMouseX>370 && posMouseX<652) && (posMouseY>214 && posMouseY<250)){
-			highscoreB = new Image("data/fonts/highscoreW.png");
-			if(Mouse.isButtonDown(0)){
-				sbg.enterState(2);
-			}
-		}
-		else{
-			highscoreB = new Image("data/fonts/highscoreB.png");
-		}
-		
-		if((posMouseX>369 && posMouseX<657) && (posMouseY>114 && posMouseY<150)){
 			exitB = new Image("data/fonts/exitgameW.png");
 			if(Mouse.isButtonDown(0)){
 				System.exit(0);

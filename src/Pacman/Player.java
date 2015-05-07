@@ -64,6 +64,10 @@ public class Player extends Entity {
         public int getLives(){
                 return this.lives;
         }
+        
+        public void setLives(int l){
+        	this.lives = l;
+        }
        
         public boolean WIN(){
                 if(this.coinsEaten >= this.MAXcoins){

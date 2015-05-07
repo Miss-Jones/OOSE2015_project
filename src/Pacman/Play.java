@@ -12,10 +12,10 @@ import org.newdawn.slick.util.ResourceLoader;
  
 public class Play extends BasicGameState {
        
-        Player player = new Player(15*32,14*32,3,"Player1");
-        Enemy ghost[] = {new Enemy(448,384),new Enemy(480,384),new Enemy(480,384),new Enemy(512,384),new Enemy(544,384)};
-        Level collisionLevel = new Level();
-        Level coinLevel = new Level();
+        Player player;
+        Enemy ghost[] = new Enemy[4];
+        Level collisionLevel;
+        Level coinLevel;
         Image coin;
         Image powerUp;
         TrueTypeFont font2;
@@ -45,7 +45,14 @@ public class Play extends BasicGameState {
          */
         @Override
         public void init(GameContainer gc, StateBasedGame sbg)throws SlickException{
-                dieani = false;
+            	collisionLevel = new Level();
+            	coinLevel = new Level();
+        		player = new Player(15*32,14*32,3,"Player1");
+        		ghost[0] = new Enemy(448,384); 
+        		ghost[1] = new Enemy(480,384);
+        		ghost[2] = new Enemy(512,384);
+        		ghost[3] = new Enemy(544,384);
+        		dieani = false;
                 runningTime = 0;
                 collisionLevel.SetMap("data/map/map.tmx");
                 collisionLevel.SetHitBox("collider");
@@ -215,10 +222,12 @@ public class Play extends BasicGameState {
                 }
                
                 if(player.DEAD()){
+                	init(gc,sbg);
                         sbg.enterState(3);
                 }
                
                 if(player.WIN()){
+                	init(gc,sbg);
                         sbg.enterState(2);
                 }
         }
