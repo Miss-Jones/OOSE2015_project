@@ -34,23 +34,28 @@ public class Play extends BasicGameState {
        
        
         private static final int MAX_PATH_LENGTH = 100;
-    Path path;
-    AStarPathFinder pathFinder;
-    SimpleMap map;
-    int mover;
-    Shape[] test = new Rectangle[MAX_PATH_LENGTH];
-   
-   
+        Path path;
+        AStarPathFinder pathFinder;
+        SimpleMap map;
+        int mover;
+        Shape[] test = new Rectangle[MAX_PATH_LENGTH];
    
         /**
-         *
+         * play state 
          * @param state the integer: The state
          */
         public Play(int state){
         }
        
         /**
-         *
+         * Set images for the power up and for the coin <br>
+         * Set the maps with the matching level <br>
+         * Set the hitbox with the matching level <br>
+         * Set the animations to the player when moving up, down, left, right <br>
+         * Set the path for the player <br>
+         * Set the animations for each ghost when moving up, down, left, right <br>
+         * Set the path for the ghosts <br>
+         * Loads a custom font and sets its size
          */
         @Override
         public void init(GameContainer gc, StateBasedGame sbg)throws SlickException{
@@ -125,7 +130,10 @@ public class Play extends BasicGameState {
     }  
        
         /**
-         *
+         * Used for drawing the coins around the map with a distance of a hitbox <br>
+         * Used also for drawing and setting up the powerups <br>
+         * Sets up the size and placement of the GUI
+         * The commented part makes the path of the ghost visible with the matching color to the ghost (e.g. red ghost, red path, etc.)
          */
         @Override
         public void render(GameContainer gc, StateBasedGame sbg, Graphics g)throws SlickException{
@@ -175,7 +183,7 @@ public class Play extends BasicGameState {
        
        
         /**
-         *
+         * Update updates different values
          */
         @Override
         public void update(GameContainer gc, StateBasedGame sbg, int delta)throws SlickException{
@@ -268,7 +276,8 @@ public class Play extends BasicGameState {
         }
        
         /**
-         *
+         * returns the integer getID <br>
+         * This is an override function 
          */
         @Override
         public int getID(){

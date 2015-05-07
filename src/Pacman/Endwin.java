@@ -22,9 +22,18 @@ public class Endwin extends BasicGameState {
 	Image menuB;
 	private Music startSound;
 	TrueTypeFont font2;
-	Endwin(int state){
-		
+	
+	/**
+	 * State when the game is over by collecting all the coins
+	 * @param state the integer: the state
+	 */
+	Endwin(int state){	
 	}
+	
+	/**
+	 * Loads a custom font and sets its size <br>
+	 * Opens the location for the pictures used
+	 */
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg)throws SlickException {
 		// TODO Auto-generated method stub
@@ -44,6 +53,10 @@ public class Endwin extends BasicGameState {
 		
 	}
 
+	/**
+	 * Used for drawing the size of the fonts <br>
+	 * The score is also displayed 
+	 */
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)throws SlickException {
 		// TODO Auto-generated method stub
@@ -54,6 +67,9 @@ public class Endwin extends BasicGameState {
 		
 	}
 
+	/**
+	 * Update is used for manoeuvring the mouse on the screen and clicking on the menu or play again, working like a button
+	 */
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta)throws SlickException {
 		int posMouseX = Mouse.getX();
@@ -82,6 +98,10 @@ public class Endwin extends BasicGameState {
 		
 	}
 
+	 /**
+     * returns the integer getID <br>
+     * This is an override function 
+     */
 	@Override
 	public int getID() {
 		// TODO Auto-generated method stub

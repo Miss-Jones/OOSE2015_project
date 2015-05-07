@@ -25,14 +25,17 @@ public class Entity {
         protected Image[] imageRight = new Image[3];
         protected Animation sprite,up,down,left,right;
         protected int maxPathLength = 100;
-    Path path;
-    AStarPathFinder pathFinder;
-    SimpleMap map;
-    int mover;
+        Path path;
+        AStarPathFinder pathFinder;
+        SimpleMap map;
+        int mover;
         protected int TargetposX;
         protected int TargetposY;
         protected Random rand;
        
+        /**
+    	 * Constructor where we initialise all the values
+    	 */
         Entity(){
                 this.posX = 0;
                 this.posY = 0;
@@ -46,10 +49,20 @@ public class Entity {
                 }
         }
        
+        /**
+    	 * returns the Shape getHitBox, which has the position x,y and a box of 32*32 pixels
+    	 * @return new Rectangle
+    	 */
         public Shape getHitBox(){
                 return new Rectangle((int)this.GetPosX(),(int)this.GetPosY(),32,32);
         }
        
+        /**
+    	 * Move is an update that moves the characters (and controls how much?)-------
+    	 * @param del the integer:
+    	 * @param height the integer:
+    	 * @param width the integer:
+    	 */
         public void Move(int del, int height, int width){
                 this.posX += del*this.speedX;
                 this.posY += del*this.speedY;
@@ -67,45 +80,88 @@ public class Entity {
                 }
         }
        
+        /**
+    	 * Controls the direction up
+    	 */
         public void MoveUp(){
                 this.speedY = -0.15;
                 this.speedX = 0;
         }
+        
+        /**
+    	 * Controls the direction down
+    	 */
         public void MoveDown(){
                 this.speedY = 0.15;
                 this.speedX = 0;
         }
+        
+        /**
+    	 * Controls the direction left
+    	 */
         public void MoveLeft(){
                 this.speedX = -0.15;
                 this.speedY = 0;
         }
+        
+        /**
+    	 * Controls the direction right
+    	 */
         public void MoveRight(){
                 this.speedX = 0.15;
                 this.speedY = 0;
         }
+        
+        /**
+    	 * When the character has moved and stops, stops
+    	 */
         public void StopUpDown(){
                 this.speedY=0;
         }
+        
+        /**
+    	 * When the character has moved and stops, stops
+    	 */
         public void StopLeftRight(){
                 this.speedX=0;
         }
        
+        /**
+    	 * Returns the float GetPosX
+    	 * @return this.posX the float
+    	 */
         public float GetPosX(){
                 return this.posX;
         }
        
+        /**
+    	 * Returns the float GetPosY
+    	 * @return this.posY the float
+    	 */
         public float GetPosY(){
                 return this.posY;
         }
        
+        /**
+    	 * Returns the float GetSpeedX
+    	 * @return this.speedX the float
+    	 */
         public double getSpeedX(){
                 return this.speedX;
         }
        
+        /**
+    	 * Returns the float GetSpeedY
+    	 * @return this.speedY the float
+    	 */
         public double getSpeedY(){
                 return this.speedY;
         }
        
+        /**
+    	 * Checks if the character is dead by the amount of lives there is left
+    	 * @return true if this.lives<0, else false
+    	 */
         public boolean DEAD(){
                 if(this.lives<1){
                         return true;
@@ -114,6 +170,12 @@ public class Entity {
                 }
         }
        
+        /**
+    	 * Used for setting the animation of the character when moving upwards
+    	 * @param first the String: location for the first picture
+    	 * @param second the String: location for the second picture
+    	 * @param third the String: location for the third picture
+    	 */
         public void SetAniUp(String first, String second, String third){
                 try {
                         this.imageUp[0] = new Image(first);
@@ -126,10 +188,20 @@ public class Entity {
                 }
         }
        
+        /**
+    	 * Used for getting the upwards animation
+    	 * @return this.up the Animation
+    	 */
         public Animation GetAniUp(){
                 return this.up;
         }
        
+        /**
+    	 * Used for setting the animation of the character when moving downwards
+    	 * @param first the String: location for the first picture
+    	 * @param second the String: location for the second picture
+    	 * @param third the String: location for the third picture
+    	 */
         public void SetAniDown(String first, String second, String third){
                 try {
                         this.imageDown[0] = new Image(first);
@@ -142,10 +214,20 @@ public class Entity {
                 }
         }
        
+        /**
+    	 * Used for getting the downwards animation
+    	 * @return this.down the Animation
+    	 */
         public Animation GetAniDown(){
                 return this.down;
         }
        
+        /**
+    	 * Used for setting the animation of the character when moving left
+    	 * @param first the String: location for the first picture
+    	 * @param second the String: location for the second picture
+    	 * @param third the String: location for the third picture
+    	 */
         public void SetAniLeft(String first, String second, String third){
                 try {
                         this.imageLeft[0] = new Image(first);
@@ -159,10 +241,20 @@ public class Entity {
                 }
         }
        
+        /**
+    	 * Used for getting the left moving animation
+    	 * @return this.down the Animation
+    	 */
         public Animation GetAniLeft(){
                 return this.left;
         }
        
+        /**
+    	 * Used for setting the animation of the character when moving right
+    	 * @param first the String: location for the first picture
+    	 * @param second the String: location for the second picture
+    	 * @param third the String: location for the third picture
+    	 */
         public void SetAniRight(String first, String second, String third){
                 try {
                         this.imageRight[0] = new Image(first);
@@ -175,22 +267,42 @@ public class Entity {
                 }
         }
        
+        /**
+    	 * Used for getting the right moving animation
+    	 * @return this.down the Animation
+    	 */
         public Animation GetAniRight(){
                 return this.right;
         }
        
+        /**
+    	 * Used to set the animation of the sprite
+    	 * @param s the Animation: this.sprite is set to s
+    	 */
         public void SetSprite(Animation s){
                 this.sprite = s;
         }
        
+        /**
+    	 * Used to get the animation of the sprite
+    	 * @return this.sprite the Animation
+    	 */
         public Animation GetSprite(){
                 return this.sprite;
         }
        
+        /**
+    	 * Using an array to retrieve the duration of the animation
+    	 * @return this.anidur the integer array
+    	 */
         public int[] GetAnimationDuration(){
                 return this.anidur;
         }
        
+        /**
+    	 * Set the duration of the animation in the integer array
+    	 * @param a the integer array: The animation duration should only hold 3 values
+    	 */
         public void SetAnimationDuration(int[] a){
                 if(a.length>3||a.length<3){
                         System.out.println("ERROR: Animation Duration has to have 3 values only!");
@@ -199,6 +311,11 @@ public class Entity {
                 }
         }
        
+        /**
+    	 * Setting the collisionLayerId with the TiledMap so that the collision matches the walls
+    	 * @param map the TiledMap: based on the TiledMap
+    	 * @param collisionLayerId the integer: based on the collisionLayerId
+    	 */
         public void SetTargetPos(TiledMap map, int collisionLayerId){
                 this.TargetposY = (int)this.rand.nextInt(map.getHeight());
                 this.TargetposX = (int)this.rand.nextInt(map.getWidth());
@@ -208,6 +325,10 @@ public class Entity {
         }
        
 }
+        /**
+    	 * Creating a path based on the free space between the walls of the TiledMap and collisionLayerId 
+    	 * @param map the Level: based on the level
+    	 */
         public void SetPath(Level map){
                 this.SetTargetPos(map.GetMap(),map.GetIndexLayer());
         this.map = new SimpleMap(map.GetMap(), map.GetIndexLayer());
@@ -216,6 +337,10 @@ public class Entity {
         this.mover = 1;
         }
        
+        /**
+    	 * Making it possible to move on the path created from SetPath in the 4 directions(up,down,left,right)
+    	 * @param map the Level: based on the level
+    	 */
         public void movePath(Level map){
                 if(this.path.getLength()>this.mover){
                         if(this.path.getX(this.mover)>Math.round(this.GetPosX()/32*8)/8f){
@@ -244,14 +369,22 @@ public class Entity {
                 }
         }
        
+        /**
+    	 * Creating a hitbox for the path for moving around and for setting the coins
+    	 * @return temp the Shape[]: not temperary just used for naming
+    	 */
         public Shape[] getPathHitbox(){
                 Shape temp[] = new Rectangle[this.path.getLength()];
-for(int i = 0; i < temp.length; i++) { 
+                for(int i = 0; i < temp.length; i++) { 
                         temp[i] = new Rectangle(this.path.getX(i)*32,this.path.getY(i)*32,32,32);
         }
         return temp;
         }
-       
+        
+        /**
+    	 * Getting the length of the path
+    	 * @return this.path.getLength the integer
+    	 */
         public int getPathLenght(){
                 return this.path.getLength();
         }

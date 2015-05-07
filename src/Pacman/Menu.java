@@ -10,15 +10,16 @@ public class Menu extends BasicGameState {
 	Image playB;
 	Image exitB;
 	private Music startSound;
+	
 	/**
-	 * 
+	 * Menu state
 	 * @param state the int: The state
 	 */
 	public Menu(int state){	
 	}
 	
 	/**
-	 * 
+	 * Creates the path to the images for each instance of the GUI images
 	 */
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException{	
@@ -29,7 +30,7 @@ public class Menu extends BasicGameState {
 	}
 	
 	/**
-	 * 
+	 * Used for drawing the GUI of the menu
 	 */
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)throws SlickException{
@@ -39,7 +40,8 @@ public class Menu extends BasicGameState {
 	}
 	
 	/**
-	 * 
+	 * Takes the mouse position and enters either of the instances in the main menu when clicked. <br>
+	 * Makes sounds in playmode and when exiting.
 	 */
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta)throws SlickException{

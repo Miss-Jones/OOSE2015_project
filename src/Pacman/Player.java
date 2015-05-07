@@ -18,7 +18,13 @@ public class Player extends Entity {
         protected Animation die;
         Sound diesound;
  
- 
+        /**
+         * 
+         * @param x
+         * @param y
+         * @param l
+         * @param n
+         */
         Player(int x, int y, int l, String n){
                 this.posX = x;
                 this.posY = y;
@@ -36,15 +42,27 @@ public class Player extends Entity {
                         this.lives = l;
                 }              
         }
-               
+            
+        /**
+         * gets the name of the player using a string
+         * @return this.name the String
+         */
         public String GetName(){
                 return this.name;
         }
        
+        /**
+         * Sets the score
+         * @param s the integer:
+         */
         public void SetScore(int s){
                 this.score += s;
         }
        
+        /**
+         * gets the score
+         * @return this.score
+         */
         public int GetScore(){
                 return this.score;
         }
