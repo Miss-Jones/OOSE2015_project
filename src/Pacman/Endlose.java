@@ -1,13 +1,19 @@
 package Pacman;
 
+import java.awt.Font;
+import java.io.InputStream;
+
 import org.lwjgl.input.Mouse;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.util.ResourceLoader;
 
 public class Endlose extends BasicGameState {
 
@@ -15,12 +21,24 @@ public class Endlose extends BasicGameState {
 	Image playagainB;
 	Image menuB;
 	private Music startSound;
+	TrueTypeFont font2;
+	Score score = new Score();
 	Endlose(int state){
 		
 	}
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg)throws SlickException {
 		// TODO Auto-generated method stub
+		try {
+            InputStream inputStream = ResourceLoader.getResourceAsStream("data/fonts/heavy_data.ttf");
+             
+            Font awtFont2 = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+            awtFont2 = awtFont2.deriveFont(36f); // set font size
+            font2 = new TrueTypeFont(awtFont2, false);
+                 
+        } catch (Exception e) {
+            System.out.println("Could not create font!");
+        }
 		endlose = new Image("data/fonts/endgameLoser.png");
 		playagainB = new Image("data/fonts/playagainB.png");//256x30
 		menuB = new Image("data/fonts/menuB.png");//113x30
@@ -35,6 +53,7 @@ public class Endlose extends BasicGameState {
 		endlose.draw(0,0);
 		playagainB.draw(384,570);
 		menuB.draw(456,625);
+		font2.drawString(380, 400, ""+Score.getScore(), Color.white);
 		
 	}
 

@@ -19,6 +19,7 @@ public class Play extends BasicGameState {
         Image coin;
         Image powerUp;
         TrueTypeFont font2;
+        Score score = new Score();
        
         long startupTime;
     	int startupDelay;
@@ -111,7 +112,7 @@ public class Play extends BasicGameState {
                     font2 = new TrueTypeFont(awtFont2, false);
                          
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    System.out.println("Could not create font!");
                 }
     }  
        
@@ -133,10 +134,10 @@ public class Play extends BasicGameState {
                 ghost[2].GetSprite().draw(ghost[2].GetPosX(),ghost[2].GetPosY());
                 ghost[3].GetSprite().draw(ghost[3].GetPosX(),ghost[3].GetPosY());
                 player.GetSprite().draw(player.GetPosX(),player.GetPosY());
-                g.drawString("SCORE: "+player.GetScore(),27*32,13*32);
+                //g.drawString("SCORE: "+player.GetScore(),27*32,13*32);
                 g.drawString("LIVES: "+player.getLives(), 3*32, 13*32);
                 
-                font2.drawString(820, 420, "123456789", Color.white);
+                font2.drawString(820, 420, ""+player.GetScore(), Color.white);
                
                 /*for(int i = 0; i < ghost1.getPathLenght(); i++) {
                         g.setColor(Color.red);
@@ -243,11 +244,13 @@ public class Play extends BasicGameState {
                          dieani = false;
                  }        
                 if(player.DEAD()){
+                	Score.setScore(player.GetScore());
                 	init(gc,sbg);
                         sbg.enterState(3);
                 }
                
                 if(player.WIN()){
+                	Score.setScore(player.GetScore());
                 	init(gc,sbg);
                         sbg.enterState(2);
                 }
