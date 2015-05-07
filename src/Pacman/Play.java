@@ -20,8 +20,11 @@ public class Play extends BasicGameState {
         Image powerUp;
         TrueTypeFont font2;
        
-        long runningTime;
-        boolean dieani;
+        long startupTime;
+    	int startupDelay;
+    	long runningTime;
+    	int aniTime;
+    	boolean dieani;
        
        
         private static final int MAX_PATH_LENGTH = 100;
@@ -45,6 +48,11 @@ public class Play extends BasicGameState {
          */
         @Override
         public void init(GameContainer gc, StateBasedGame sbg)throws SlickException{
+        		dieani = false;
+        		runningTime = 0;
+    			startupTime = 0;
+    			aniTime = 2400;
+    			startupDelay = 4388;
             	collisionLevel = new Level();
             	coinLevel = new Level();
         		player = new Player(15*32,14*32,3,"Player1");
@@ -52,8 +60,6 @@ public class Play extends BasicGameState {
         		ghost[1] = new Enemy(480,384);
         		ghost[2] = new Enemy(512,384);
         		ghost[3] = new Enemy(544,384);
-        		dieani = false;
-                runningTime = 0;
                 collisionLevel.SetMap("data/map/map.tmx");
                 collisionLevel.SetHitBox("collider");
                
@@ -161,66 +167,81 @@ public class Play extends BasicGameState {
          */
         @Override
         public void update(GameContainer gc, StateBasedGame sbg, int delta)throws SlickException{
-                ghost[0].movePath(collisionLevel);
-                ghost[0].Move(delta, gc.getHeight(), gc.getWidth());
-                ghost[0].GetSprite().update(delta);
                
-                ghost[1].movePath(collisionLevel);
-                ghost[1].Move(delta, gc.getHeight(), gc.getWidth());
-                ghost[1].GetSprite().update(delta);
-               
-                ghost[2].movePath(collisionLevel);
-                ghost[2].Move(delta, gc.getHeight(), gc.getWidth());
-                ghost[2].GetSprite().update(delta);
-               
-                ghost[3].movePath(collisionLevel);
-                ghost[3].Move(delta, gc.getHeight(), gc.getWidth());
-                ghost[3].GetSprite().update(delta);
-               
-                player.movePath(collisionLevel);
-                player.Move(delta,gc.getHeight(),gc.getWidth());
-                player.GetSprite().update(delta);
-               
-                Input input = gc.getInput();
-                if(input.isKeyPressed(Input.KEY_UP)){
-                        player.GoStepUp(coinLevel.GetMap(),coinLevel.GetIndexLayer());
-                }else if(input.isKeyPressed(Input.KEY_DOWN)){
-                        player.GoStepDown(coinLevel.GetMap(),coinLevel.GetIndexLayer());
-                }else if(input.isKeyPressed(Input.KEY_LEFT)){
-                        player.GoStepLeft(coinLevel.GetMap(),coinLevel.GetIndexLayer());
-                }else if(input.isKeyPressed(Input.KEY_RIGHT)){
-                        player.GoStepRight(coinLevel.GetMap(),coinLevel.GetIndexLayer());
-                }
-               
-                for(int x = 0; x<coinLevel.GetWidth();x++){
-                        for(int y = 0; y<coinLevel.GetHeight();y++){
-                                if(player.getHitBox().getCenterX()==coinLevel.GetHitbox()[x][y].getCenterX()&&player.getHitBox().getCenterY()==coinLevel.GetHitbox()[x][y].getCenterY()){
-                                        if(coinLevel.GetBlocked()[x][y]){
-                                                coinLevel.playSound();
-                                                player.SetScore(10);
-                                                player.SetCoinsEaten(1);
-                                        }
-                                        coinLevel.SetBlocked(x, y, false);
-                                }
-                        }
-                }
-               
-                for(int i = 0; i<ghost.length;i++){
-                        if(player.getHitBox().intersects(ghost[i].getHitBox())&&runningTime>2200){
-                                player.die();
-                                player.SetScore(-200);
-                                player.SetSprite(player.getDieAni());
-                                runningTime = 0;
-                                dieani = true;
-                               
-                        }
-                }
-                runningTime +=delta;
-                if(dieani&&runningTime>2200){
-                        player.SetSprite(player.GetAniRight());
-                        dieani = false;
-                }
-               
+        	 if(startupTime>startupDelay){
+                 ghost[0].movePath(collisionLevel);
+                 ghost[0].Move(delta, gc.getHeight(), gc.getWidth());
+                 ghost[0].GetSprite().update(delta);
+                 }
+                
+                 if(startupTime>startupDelay){
+                 ghost[1].movePath(collisionLevel);
+                 ghost[1].Move(delta, gc.getHeight(), gc.getWidth());
+                 ghost[1].GetSprite().update(delta);
+                 }
+                
+                 if(startupTime>startupDelay){
+                 ghost[2].movePath(collisionLevel);
+                 ghost[2].Move(delta, gc.getHeight(), gc.getWidth());
+                 ghost[2].GetSprite().update(delta);
+                 }
+                
+                 if(startupTime>startupDelay){
+                 ghost[3].movePath(collisionLevel);
+                 ghost[3].Move(delta, gc.getHeight(), gc.getWidth());
+                 ghost[3].GetSprite().update(delta);
+                 }
+                
+                 if(runningTime>aniTime&&startupTime>startupDelay){
+                 player.movePath(collisionLevel);
+                 player.Move(delta,gc.getHeight(),gc.getWidth());
+                 }
+                 player.GetSprite().update(delta);
+                
+                 Input input = gc.getInput();
+                 if(input.isKeyPressed(Input.KEY_UP)&&runningTime>aniTime&&startupTime>startupDelay){
+                         player.GoStepUp(coinLevel.GetMap(),coinLevel.GetIndexLayer());
+                         player.SetSprite(player.GetAniUp());
+                 }else if(input.isKeyPressed(Input.KEY_DOWN)&&runningTime>aniTime&&startupTime>startupDelay){
+                         player.GoStepDown(coinLevel.GetMap(),coinLevel.GetIndexLayer());
+                         player.SetSprite(player.GetAniDown());
+                 }else if(input.isKeyPressed(Input.KEY_LEFT)&&runningTime>aniTime&&startupTime>startupDelay){
+                         player.GoStepLeft(coinLevel.GetMap(),coinLevel.GetIndexLayer());
+                         player.SetSprite(player.GetAniLeft());
+                 }else if(input.isKeyPressed(Input.KEY_RIGHT)&&runningTime>aniTime&&startupTime>startupDelay){
+                         player.GoStepRight(coinLevel.GetMap(),coinLevel.GetIndexLayer());
+                         player.SetSprite(player.GetAniRight());
+                 }
+                
+                 for(int x = 0; x<coinLevel.GetWidth();x++){
+                         for(int y = 0; y<coinLevel.GetHeight();y++){
+                                 if(player.getHitBox().contains(coinLevel.GetHitbox()[x][y].getCenterX(), coinLevel.GetHitbox()[x][y].getCenterY())){
+                                         if(coinLevel.GetBlocked()[x][y]){
+                                                 coinLevel.playSound();
+                                                 player.SetScore(10);
+                                                 player.SetCoinsEaten(1);
+                                         }
+                                         coinLevel.SetBlocked(x, y, false);
+                                 }
+                         }
+                 }
+                
+                 for(int i = 0; i<ghost.length;i++){
+                         if(player.getHitBox().contains(ghost[i].getHitBox().getCenterX(),ghost[i].getHitBox().getCenterY())&&runningTime>aniTime){
+                                 player.die();
+                                 player.SetScore(-200);
+                                 player.SetSprite(player.getDieAni());
+                                 runningTime = 0;
+                                 dieani = true;
+                                
+                         }
+                 }
+                 runningTime +=delta;
+                 startupTime +=delta;
+                 if(dieani&&runningTime>aniTime){
+                         player.SetSprite(player.GetAniRight());
+                         dieani = false;
+                 }        
                 if(player.DEAD()){
                 	init(gc,sbg);
                         sbg.enterState(3);

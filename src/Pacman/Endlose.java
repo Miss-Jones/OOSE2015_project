@@ -43,7 +43,7 @@ public class Endlose extends BasicGameState {
 		// TODO Auto-generated method stub
 		int posMouseX = Mouse.getX();
 		int posMouseY = Mouse.getY();
-		System.out.println(posMouseX + "___" + posMouseY);
+		
 		
 		if((posMouseX>384 && posMouseX<649) && (posMouseY>200 && posMouseY<230)){
 			playagainB = new Image("data/fonts/playagainW.png");

@@ -114,16 +114,16 @@ public class Player extends Entity {
                 if(this.path.getLength()>this.mover){
                         if(this.path.getX(this.mover)>Math.round(this.GetPosX()/32*8)/8f){
                                 this.MoveRight();
-                                this.SetSprite(this.GetAniRight());
+                                
                         }else if(this.path.getX(this.mover)<Math.round(this.GetPosX()/32*8)/8f){
                                 this.MoveLeft();
-                                this.SetSprite(this.GetAniLeft());
+                             
                         }else if(this.path.getY(this.mover)>Math.round(this.GetPosY()/32*8)/8f){
                                 this.MoveDown();
-                                this.SetSprite(this.GetAniDown());
+                               
                         }else if(this.path.getY(this.mover)<Math.round(this.GetPosY()/32*8)/8f){
                                 this.MoveUp();
-                                this.SetSprite(this.GetAniUp());
+                                
                         }
                         if(this.path.getX(this.mover)==Math.round(this.GetPosX()/32*8)/8f&&this.path.getY(this.mover)==Math.round(this.GetPosY()/32*8)/8f){
  
