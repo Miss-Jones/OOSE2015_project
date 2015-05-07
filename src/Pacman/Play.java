@@ -6,8 +6,10 @@ import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.state.*;
 import org.newdawn.slick.util.pathfinding.AStarPathFinder;
 import org.newdawn.slick.util.pathfinding.Path;
+
 import java.awt.Font;
 import java.io.InputStream;
+
 import org.newdawn.slick.util.ResourceLoader;
  
 public class Play extends BasicGameState {
@@ -20,6 +22,9 @@ public class Play extends BasicGameState {
         Image powerUp;
         TrueTypeFont font2;
         Score score = new Score();
+        Image pacmanpic;
+        Image livespic;
+        Image scorepic;
        
         long startupTime;
     	int startupDelay;
@@ -49,6 +54,9 @@ public class Play extends BasicGameState {
          */
         @Override
         public void init(GameContainer gc, StateBasedGame sbg)throws SlickException{
+        		pacmanpic = new Image("data/fonts/pacman3.png");
+        		livespic = new Image("data/fonts/lives.png");
+        		scorepic = new Image("data/fonts/score.png");
         		dieani = false;
         		runningTime = 0;
     			startupTime = 0;
@@ -135,9 +143,12 @@ public class Play extends BasicGameState {
                 ghost[3].GetSprite().draw(ghost[3].GetPosX(),ghost[3].GetPosY());
                 player.GetSprite().draw(player.GetPosX(),player.GetPosY());
                 //g.drawString("SCORE: "+player.GetScore(),27*32,13*32);
-                g.drawString("LIVES: "+player.getLives(), 3*32, 13*32);
                 
-                font2.drawString(820, 420, ""+player.GetScore(), Color.white);
+                font2.drawString(880, 365, ""+player.getLives(), Color.white);
+                font2.drawString(855, 435, ""+player.GetScore(), Color.white);
+                pacmanpic.draw(40, 365);
+                livespic.draw(840, 335);
+                scorepic.draw(830, 410);
                
                 /*for(int i = 0; i < ghost1.getPathLenght(); i++) {
                         g.setColor(Color.red);
