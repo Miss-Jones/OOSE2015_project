@@ -8,13 +8,12 @@ import org.newdawn.slick.tiled.TiledMap;
 
 public class Level {
 	
-	protected TiledMap map;
-	protected String mapName;
-	protected Shape[][] hitbox = new Rectangle[1024][800];
-	protected int count;
-	protected int hitboxLayer;
-	protected boolean[][] blocked = new boolean[100][100];
-	protected Sound sound;
+	protected TiledMap map;//The map of the level
+	protected String mapName;//name of that map
+	protected Shape[][] hitbox = new Rectangle[1024][800];//make a shape array with the size of the screen.
+	protected int hitboxLayer;//The layer to create the hitbox on
+	protected boolean[][] blocked = new boolean[100][100];//is there a hitbox on this layer?
+	protected Sound sound;//Level sound
 	
 	/**
 	 * Level constructor 
@@ -29,33 +28,30 @@ public class Level {
 	public void SetMap(String m){
 		this.mapName = m;
 		try {
-			this.map = new TiledMap(this.mapName);
+			this.map = new TiledMap(this.mapName);//load the map
 			
 		} catch (SlickException e) {
-			// TODO Auto-generated catch block
-			System.out.println("Could not initiate Tiled Map");
+			System.out.println("Could not initiate Tiled Map");//If it can't load the map, print an error.
 		}
 	}
 	
 	/**
 	 * Used for the sound on the map
-	 * @param m the String: 
+	 * @param m the String: changes this.mapName
 	 * @param soundlocation the String: takes a string as argument for the sound location
 	 */
 	public void SetMap(String m, String soundlocation){
-		this.mapName = m;
+		this.mapName = m;//load the map
 		try {
-			this.sound = new Sound(soundlocation);
+			this.sound = new Sound(soundlocation);//load the sound
 		} catch (SlickException e1) {
-			// TODO Auto-generated catch block
-			System.out.println("Could not initialize level sound!");
+			System.out.println("Could not initialize level sound!");//If it can't load the sound, print an error.
 		}
 		try {
-			this.map = new TiledMap(this.mapName);
+			this.map = new TiledMap(this.mapName);//load the map
 			
 		} catch (SlickException e) {
-			// TODO Auto-generated catch block
-			System.out.println("Could not initiate Tiled Map");
+			System.out.println("Could not initiate Tiled Map");//If it can't load the map, print an error.
 		}
 	}
 	
@@ -77,35 +73,31 @@ public class Level {
 	
 	/**
 	 * Used for playing the sound
-	 * @return this.sound.play
 	 */
 	public void playSound(){
-		if(!this.sound.playing()){
-		this.sound.play();
+		if(!this.sound.playing()){//if the sound is not playing
+		this.sound.play();//play the sound
 		}
 	}
 	
 	/**
 	 * Used for stopping the sound
-	 * @return this.sound.stop
 	 */
 	public void stopSound(){
 		this.sound.stop();
 	}
 	
 	/**
-     * Sets the hitbox and checks if the hitbox is hitting the walls. If so it should not be able to move through
+     * Sets the hitbox on the layer of that map
      * @param h the String:
      */
 	public void SetHitBox(String h){
-		this.count = 0;
-		this.hitboxLayer = this.map.getLayerIndex(h);
-		for(int x = 0; x<this.map.getWidth();x++){
+		this.hitboxLayer = this.map.getLayerIndex(h);//get the layer from h
+		for(int x = 0; x<this.map.getWidth();x++){//loop through the map
 			for(int y = 0; y<this.map.getHeight();y++){
-				if(this.map.getTileId(x, y, this.hitboxLayer)!=0){
-					this.hitbox[x][y] = new Rectangle(x*32,y*32,32,32);
-					this.count++;
-					this.blocked[x][y]= true;
+				if(this.map.getTileId(x, y, this.hitboxLayer)!=0){//if there is something on that tile
+					this.hitbox[x][y] = new Rectangle(x*32,y*32,32,32);//set the hitbox
+					this.blocked[x][y]= true;//set the blocked to true
 				}else{
 					this.hitbox[x][y] = new Rectangle(0,0,0,0);
 				}
@@ -139,9 +131,9 @@ public class Level {
 	
 	/**
 	 * Sets up the block based on x-y coordinates
-	 * @param x the integer:
-	 * @param y the integer:
-	 * @param b the boolean:
+	 * @param x the integer: the x position
+	 * @param y the integer: the y position
+	 * @param b the boolean: true or false
 	 */
 	public void SetBlocked(int x, int y, boolean b){
 		this.blocked[x][y] = b;

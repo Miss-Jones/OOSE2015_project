@@ -6,10 +6,10 @@ import org.newdawn.slick.state.*;
 
 public class Menu extends BasicGameState {
 
-	Image pacman;
-	Image playB;
-	Image exitB;
-	private Music startSound;
+	Image pacman;//pacman image
+	Image playB;//play image
+	Image exitB;//exit image
+	private Music startSound;//the start sound
 	
 	/**
 	 * Menu state
@@ -22,11 +22,11 @@ public class Menu extends BasicGameState {
 	 * Creates the path to the images for each instance of the GUI images
 	 */
 	@Override
-	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException{	
+	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException{
+		//sets all the images
 		pacman = new Image("data/fonts/pacman.png");
 		playB = new Image("data/fonts/playB.png");
 		exitB = new Image("data/fonts/exitgameB.png");
-		sbg.enterState(0);
 	}
 	
 	/**
@@ -45,29 +45,31 @@ public class Menu extends BasicGameState {
 	 */
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta)throws SlickException{
+		//get mouse position
 		int posMouseX = Mouse.getX();
 		int posMouseY = Mouse.getY();
 		
-		if((posMouseX>361 && posMouseX<659) && (posMouseY>314 && posMouseY<360)){
-			playB = new Image("data/fonts/playW.png");
-			if(Mouse.isButtonDown(0)){
-				sbg.enterState(1);
+		if((posMouseX>361 && posMouseX<659) && (posMouseY>314 && posMouseY<360)){//if mouse is within play image
+			playB = new Image("data/fonts/playW.png");//change the image to the white
+			if(Mouse.isButtonDown(0)){//if the button is clicked
+				sbg.enterState(1);//goto play
+				//and play all the musics
 				startSound = new Music("data/sounds/pacmanStart.ogg");
 				startSound.setVolume(0.5f);
 				startSound.play();
 			}	
 		}
-		else{
-			playB = new Image("data/fonts/playB.png");
+		else{//if mouse is moved away
+			playB = new Image("data/fonts/playB.png");//change image back
 		}
-		if((posMouseX>370 && posMouseX<652) && (posMouseY>214 && posMouseY<250)){
-			exitB = new Image("data/fonts/exitgameW.png");
-			if(Mouse.isButtonDown(0)){
-				System.exit(0);
+		if((posMouseX>370 && posMouseX<652) && (posMouseY>214 && posMouseY<250)){//if mouse is within exit image
+			exitB = new Image("data/fonts/exitgameW.png");//change the image to the white
+			if(Mouse.isButtonDown(0)){//if the button is clicked
+				System.exit(0);//terminate
 			}
 		}
-		else{
-			exitB = new Image("data/fonts/exitgameB.png");
+		else{//if mouse is moved away
+			exitB = new Image("data/fonts/exitgameB.png");//change image back
 		}
 	}
 	

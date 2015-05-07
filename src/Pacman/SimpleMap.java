@@ -13,7 +13,7 @@ public class SimpleMap implements TileBasedMap {
      * Takes this.map and set it to the map <br>
      * Takes this.blockingLayerId and set it to the blockingLayerId <br>
      * @param map the TiledMap: makes this.map to the map
-     * @param blockingLayerId the integer: makes this.blockingLayerId into the blockingLayerId
+     * @param blockingLayerId the integer: makes this.blockingLayerId to the blockingLayerId
      */
     public SimpleMap(TiledMap map, int blockingLayerId) {
         this.map = map;
@@ -21,7 +21,8 @@ public class SimpleMap implements TileBasedMap {
     }
     
     /**
-     * Used for checking if there is a wall or not on the path.
+     * Used for checking if there is a wall or not on the path.<br>
+     * This is an override method
      * @return map.getTileId the boolean
      */
        @Override
@@ -30,7 +31,8 @@ public class SimpleMap implements TileBasedMap {
     }
  
     /**
-     * Get cost of every tile
+     * Get cost of every tile<br>
+     * this is an override method
      */
     @Override
     public float getCost(PathFindingContext ctx, int x, int y) {
@@ -38,7 +40,8 @@ public class SimpleMap implements TileBasedMap {
     }
  
     /**
-     * gets the height of the tiles
+     * gets the height of the tiles<br>
+     * this is an override method
      * @return map.getHeight the integer
      */
     @Override
@@ -47,7 +50,8 @@ public class SimpleMap implements TileBasedMap {
     }
  
     /**
-     * gets the width of the tiles
+     * gets the width of the tiles<br>
+     * this is an override method
      * @return map.getWidth the integer
      */
     @Override
@@ -57,6 +61,7 @@ public class SimpleMap implements TileBasedMap {
  
     /**
      * checks if the path have been visited using arguments 0 and 1
+     * this is an override method
      */
     @Override
     public void pathFinderVisited(int arg0, int arg1) {}

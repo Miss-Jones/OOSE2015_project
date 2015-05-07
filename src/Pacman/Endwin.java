@@ -36,7 +36,6 @@ public class Endwin extends BasicGameState {
 	 */
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg)throws SlickException {
-		// TODO Auto-generated method stub
 		try {
             InputStream inputStream = ResourceLoader.getResourceAsStream("data/fonts/heavy_data.ttf");
              
@@ -59,7 +58,6 @@ public class Endwin extends BasicGameState {
 	 */
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)throws SlickException {
-		// TODO Auto-generated method stub
 		endwin.draw(0,0);
 		playagainB.draw(386,570);
 		menuB.draw(456,625);
@@ -68,7 +66,7 @@ public class Endwin extends BasicGameState {
 	}
 
 	/**
-	 * Update is used for manoeuvring the mouse on the screen and clicking on the menu or play again, working like a button
+	 * Update is used for maneuvering the mouse on the screen and clicking on the menu or play again, working like a button
 	 */
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta)throws SlickException {
@@ -104,7 +102,6 @@ public class Endwin extends BasicGameState {
      */
 	@Override
 	public int getID() {
-		// TODO Auto-generated method stub
 		return 2;
 	}
 

@@ -13,28 +13,28 @@ import org.newdawn.slick.util.pathfinding.Path;
  
 public class Entity {
  
-        protected float posX;
-        protected float posY;
-        protected int lives;
-        protected Random randomGen;
-        protected double speedX, speedY;
-        protected int[] anidur = new int[3];
-        protected Image[] imageUp = new Image[3];
-        protected Image[] imageDown = new Image[3];
-        protected Image[] imageLeft = new Image[3];
-        protected Image[] imageRight = new Image[3];
-        protected Animation sprite,up,down,left,right;
-        protected int maxPathLength = 100;
-        Path path;
-        AStarPathFinder pathFinder;
-        SimpleMap map;
-        int mover;
-        protected int TargetposX;
-        protected int TargetposY;
-        protected Random rand;
+        protected float posX;//The x position
+        protected float posY;//The y position
+        protected int lives;// number of lives
+        protected Random randomGen;// a Random number generator
+        protected double speedX, speedY;//the speed on the x and y axis
+        protected int[] anidur = new int[3];//The animation duration
+        protected Image[] imageUp = new Image[3];//The images for animation
+        protected Image[] imageDown = new Image[3];//The images for animation
+        protected Image[] imageLeft = new Image[3];//The images for animation
+        protected Image[] imageRight = new Image[3];//The images for animation
+        protected Animation sprite,up,down,left,right;//the different animations
+        protected int maxPathLength = 100;//The maximum length of the path
+        Path path;//The actual path
+        AStarPathFinder pathFinder;//The way to find the path
+        SimpleMap map;//A Simplemap, to convert to from TiledMap
+        int mover;//Interger to keep track of steps taken
+        protected int TargetposX;//The x position to go to
+        protected int TargetposY;//The y position to go to
+        protected Random rand;//Another random generator
        
         /**
-    	 * Constructor where we initialise all the values
+    	 * Constructor where we initialize all the values
     	 */
         Entity(){
                 this.posX = 0;
@@ -58,14 +58,15 @@ public class Entity {
         }
        
         /**
-    	 * Move is an update that moves the characters (and controls how much?)-------
-    	 * @param del the integer:
-    	 * @param height the integer:
-    	 * @param width the integer:
+    	 * Move is an update that starts the movement of the entities
+    	 * @param del the integer: The Delta time
+    	 * @param height the integer: Height of the screen
+    	 * @param width the integer: Width of the screen
     	 */
         public void Move(int del, int height, int width){
-                this.posX += del*this.speedX;
-                this.posY += del*this.speedY;
+                this.posX += del*this.speedX; //move depending on the speed and delta time
+                this.posY += del*this.speedY; //move depending on the speed and delta time
+                //Check if the Entity is going off-screen
                 if(this.posX>width+31){
                         this.posX = -30;
                 }
@@ -81,7 +82,7 @@ public class Entity {
         }
        
         /**
-    	 * Controls the direction up
+    	 * Controls the direction up, by setting the speed
     	 */
         public void MoveUp(){
                 this.speedY = -0.15;
@@ -89,7 +90,7 @@ public class Entity {
         }
         
         /**
-    	 * Controls the direction down
+    	 * Controls the direction down, by setting the speed
     	 */
         public void MoveDown(){
                 this.speedY = 0.15;
@@ -97,7 +98,7 @@ public class Entity {
         }
         
         /**
-    	 * Controls the direction left
+    	 * Controls the direction left, by setting the speed
     	 */
         public void MoveLeft(){
                 this.speedX = -0.15;
@@ -105,7 +106,7 @@ public class Entity {
         }
         
         /**
-    	 * Controls the direction right
+    	 * Controls the direction right, by setting the speed
     	 */
         public void MoveRight(){
                 this.speedX = 0.15;
@@ -113,21 +114,21 @@ public class Entity {
         }
         
         /**
-    	 * When the character has moved and stops, stops
+    	 * Stops up and down movement, by setting the speed
     	 */
         public void StopUpDown(){
                 this.speedY=0;
         }
         
         /**
-    	 * When the character has moved and stops, stops
+    	 * Stops the left and right move, by setting the speed
     	 */
         public void StopLeftRight(){
                 this.speedX=0;
         }
        
         /**
-    	 * Returns the float GetPosX
+    	 * Returns GetPosX the float
     	 * @return this.posX the float
     	 */
         public float GetPosX(){
@@ -135,7 +136,7 @@ public class Entity {
         }
        
         /**
-    	 * Returns the float GetPosY
+    	 * Returns GetPosY the float
     	 * @return this.posY the float
     	 */
         public float GetPosY(){
@@ -143,16 +144,16 @@ public class Entity {
         }
        
         /**
-    	 * Returns the float GetSpeedX
-    	 * @return this.speedX the float
+    	 * Returns GetSpeedX the double
+    	 * @return this.speedX the double
     	 */
         public double getSpeedX(){
                 return this.speedX;
         }
        
         /**
-    	 * Returns the float GetSpeedY
-    	 * @return this.speedY the float
+    	 * Returns GetSpeedY the double
+    	 * @return this.speedY the double
     	 */
         public double getSpeedY(){
                 return this.speedY;
@@ -181,10 +182,10 @@ public class Entity {
                         this.imageUp[0] = new Image(first);
                         this.imageUp[1] = new Image(second);
                         this.imageUp[2] = new Image(third);
-                        this.up = new Animation(this.imageUp,this.anidur,false);
-                        this.up.setPingPong(true);
+                        this.up = new Animation(this.imageUp,this.anidur,false);//Set the animation depending on the images
+                        this.up.setPingPong(true);//Go back and fourth between animations
                 } catch (SlickException e) {
-                        System.out.println("Could not initialize UP Animation images");
+                        System.out.println("Could not initialize UP Animation images");//If it can't, print error messages
                 }
         }
        
@@ -207,10 +208,10 @@ public class Entity {
                         this.imageDown[0] = new Image(first);
                         this.imageDown[1] = new Image(second);
                         this.imageDown[2] = new Image(third);
-                        this.down = new Animation(this.imageDown,this.anidur,false);
-                        this.down.setPingPong(true);
+                        this.down = new Animation(this.imageDown,this.anidur,false);//Set the animation depending on the images
+                        this.down.setPingPong(true);//Go back and fourth between animations
                 } catch (SlickException e) {
-                        System.out.println("Could not initialize DOWN Animation images");
+                        System.out.println("Could not initialize DOWN Animation images");//If it can't, print error messages
                 }
         }
        
@@ -233,11 +234,11 @@ public class Entity {
                         this.imageLeft[0] = new Image(first);
                         this.imageLeft[1] = new Image(second);
                         this.imageLeft[2] = new Image(third);
-                        this.left = new Animation(this.imageLeft,this.anidur,false);
-                        this.left.setPingPong(true);
+                        this.left = new Animation(this.imageLeft,this.anidur,false);//Set the animation depending on the images
+                        this.left.setPingPong(true);//Go back and fourth between animations
                 } catch (SlickException e) {
                         // TODO Auto-generated catch block
-                        System.out.println("Could not initialize LEFT Animation images");
+                        System.out.println("Could not initialize LEFT Animation images");//If it can't, print error messages
                 }
         }
        
@@ -260,10 +261,10 @@ public class Entity {
                         this.imageRight[0] = new Image(first);
                         this.imageRight[1] = new Image(second);
                         this.imageRight[2] = new Image(third);
-                        this.right = new Animation(this.imageRight,this.anidur,false);
-                        this.right.setPingPong(true);
+                        this.right = new Animation(this.imageRight,this.anidur,false);//Set the animation depending on the images
+                        this.right.setPingPong(true);//Go back and fourth between animations
                 } catch (SlickException e) {
-                        System.out.println("Could not initialize RIGHT Animation images");
+                        System.out.println("Could not initialize RIGHT Animation images");//If it can't, print error messages
                 }
         }
        
@@ -312,13 +313,14 @@ public class Entity {
         }
        
         /**
-    	 * Setting the collisionLayerId with the TiledMap so that the collision matches the walls
+    	 * Setting the collisionLayerId with the TiledMap so that the collision matches the Layer ID of the TiledMap
     	 * @param map the TiledMap: based on the TiledMap
     	 * @param collisionLayerId the integer: based on the collisionLayerId
     	 */
         public void SetTargetPos(TiledMap map, int collisionLayerId){
-                this.TargetposY = (int)this.rand.nextInt(map.getHeight());
-                this.TargetposX = (int)this.rand.nextInt(map.getWidth());
+                this.TargetposY = (int)this.rand.nextInt(map.getHeight());//set target position y to a random interger within the height of the map
+                this.TargetposX = (int)this.rand.nextInt(map.getWidth());//set target position x to a random interger within the width of the map
+                //While these target positions are not on the path without walls, set new target positions
                 while(map.getTileId(this.TargetposX, this.TargetposY, collisionLayerId)!=0||(this.posX/32==this.TargetposX&&this.posY/32==this.TargetposY)){
                         this.TargetposY = (int)this.rand.nextInt(map.getHeight());
                         this.TargetposX = (int)this.rand.nextInt(map.getWidth());
@@ -326,15 +328,15 @@ public class Entity {
        
 }
         /**
-    	 * Creating a path based on the free space between the walls of the TiledMap and collisionLayerId 
+    	 * Creating a path based on the free space between the walls of the TiledMap, based on the collisionLayerId 
     	 * @param map the Level: based on the level
     	 */
         public void SetPath(Level map){
-                this.SetTargetPos(map.GetMap(),map.GetIndexLayer());
-        this.map = new SimpleMap(map.GetMap(), map.GetIndexLayer());
-        this.pathFinder = new AStarPathFinder(this.map, this.maxPathLength, false);
-        this.path = this.pathFinder.findPath(null, (int)this.GetPosX()/32, (int)this.GetPosY()/32, this.TargetposX, this.TargetposY);
-        this.mover = 1;
+                this.SetTargetPos(map.GetMap(),map.GetIndexLayer());//Sets the target position
+        this.map = new SimpleMap(map.GetMap(), map.GetIndexLayer());//Convert the TiledMap to a SimpleMap
+        this.pathFinder = new AStarPathFinder(this.map, this.maxPathLength, false);//Create a new pathfinder, based on the A* pathfinding model
+        this.path = this.pathFinder.findPath(null, (int)this.GetPosX()/32, (int)this.GetPosY()/32, this.TargetposX, this.TargetposY);//Create a new path from the know position to the target position
+        this.mover = 1;//Start at the first step in the path
         }
        
         /**
@@ -342,41 +344,42 @@ public class Entity {
     	 * @param map the Level: based on the level
     	 */
         public void movePath(Level map){
-                if(this.path.getLength()>this.mover){
-                        if(this.path.getX(this.mover)>Math.round(this.GetPosX()/32*8)/8f){
-                                this.MoveRight();
-                                this.SetSprite(this.GetAniRight());
-                        }else if(this.path.getX(this.mover)<Math.round(this.GetPosX()/32*8)/8f){
-                                this.MoveLeft();
-                                this.SetSprite(this.GetAniLeft());
-                        }else if(this.path.getY(this.mover)>Math.round(this.GetPosY()/32*8)/8f){
-                                this.MoveDown();
-                                this.SetSprite(this.GetAniDown());
-                        }else if(this.path.getY(this.mover)<Math.round(this.GetPosY()/32*8)/8f){
-                                this.MoveUp();
-                                this.SetSprite(this.GetAniUp());
+                if(this.path.getLength()>this.mover){//Go through every step of the path
+                        if(this.path.getX(this.mover)>Math.round(this.GetPosX()/32*8)/8f){//If the path is to the right
+                                this.MoveRight();//go right
+                                this.SetSprite(this.GetAniRight());//set right animation
+                        }else if(this.path.getX(this.mover)<Math.round(this.GetPosX()/32*8)/8f){//If the path is to the left
+                                this.MoveLeft();//go left
+                                this.SetSprite(this.GetAniLeft());//set left animation
+                        }else if(this.path.getY(this.mover)>Math.round(this.GetPosY()/32*8)/8f){//If the path is down
+                                this.MoveDown();//go down
+                                this.SetSprite(this.GetAniDown());//set down animation
+                        }else if(this.path.getY(this.mover)<Math.round(this.GetPosY()/32*8)/8f){//If the path is up
+                                this.MoveUp();//go up
+                                this.SetSprite(this.GetAniUp());//set up animation
                         }
+                        //if we are at the end of the step
                         if(this.path.getX(this.mover)==Math.round(this.GetPosX()/32*8)/8f&&this.path.getY(this.mover)==Math.round(this.GetPosY()/32*8)/8f){
  
-                                this.mover++;
-                                this.StopLeftRight();
+                                this.mover++; //go to the next step, and stop movement
+                                this.StopLeftRight(); 
                                 this.StopUpDown();
                         }
-                }else{
-                        this.posX=this.path.getX(this.mover-1)*32;
-                        this.posY=this.path.getY(this.mover-1)*32;
-                        this.SetPath(map);
+                }else{//if we are at the end of the path.
+                        this.posX=this.path.getX(this.mover-1)*32;//Set the position to the target position
+                        this.posY=this.path.getY(this.mover-1)*32;//this is to make sure we calculate from the right position again
+                        this.SetPath(map);//set a new path
                 }
         }
        
         /**
-    	 * Creating a hitbox for the path for moving around and for setting the coins
-    	 * @return temp the Shape[]: not temperary just used for naming
+    	 * Creating a hitbox for the path, for moving around
+    	 * @return temp the Shape[]: getting the hitbox
     	 */
         public Shape[] getPathHitbox(){
-                Shape temp[] = new Rectangle[this.path.getLength()];
-                for(int i = 0; i < temp.length; i++) { 
-                        temp[i] = new Rectangle(this.path.getX(i)*32,this.path.getY(i)*32,32,32);
+                Shape temp[] = new Rectangle[this.path.getLength()];//A rectangle array that is as long as the path 
+                for(int i = 0; i < temp.length; i++) { //going through the path
+                        temp[i] = new Rectangle(this.path.getX(i)*32,this.path.getY(i)*32,32,32);//making a new rectangle on every step of the path
         }
         return temp;
         }

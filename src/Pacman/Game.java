@@ -8,6 +8,8 @@ public class Game extends StateBasedGame {
 	 * gamename is the name of the game <br>
 	 * menu is an int that saves the number of that state  <br>
 	 * play is an int that saves the number of that state  <br>
+	 * endwin is an int that saves the number of that state  <br>
+	 * endlose is an int that saves the number of that state 
 	 */
 	public static final String gamename = "Pacman";
 	public static final int menu = 0;
@@ -17,7 +19,7 @@ public class Game extends StateBasedGame {
 	
 	/**
 	 * Takes the gamename as input, and set the superclass gamename <br>
-	 * also add two states, 0 and 1. <br>
+	 * also add states 0,1,2 and 3. <br>
 	 * @param gamename the String: The name of the game
 	 */
 	public Game(String gamename){
@@ -29,7 +31,7 @@ public class Game extends StateBasedGame {
 	}
 	
 	/**
-	 * Initiates the two states and enters the 1st state.
+	 * Initiates the states and enters the 1st state.
 	 */
 	@Override
 	public void initStatesList(GameContainer gc) throws SlickException {

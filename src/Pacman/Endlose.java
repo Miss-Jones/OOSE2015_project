@@ -37,7 +37,6 @@ public class Endlose extends BasicGameState {
 	 */
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg)throws SlickException {
-		// TODO Auto-generated method stub
 		try {
             InputStream inputStream = ResourceLoader.getResourceAsStream("data/fonts/heavy_data.ttf");
              
@@ -51,8 +50,6 @@ public class Endlose extends BasicGameState {
 		endlose = new Image("data/fonts/endgameLoser.png");
 		playagainB = new Image("data/fonts/playagainB.png");//256x30
 		menuB = new Image("data/fonts/menuB.png");//113x30
-		//playagainW = new Image("data/fonts/playagainW.png");//113x30
-		//menuW = new Image("data/fonts/menuW.png");//113x30
 		
 	}
 
@@ -62,7 +59,6 @@ public class Endlose extends BasicGameState {
 	 */
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)throws SlickException {
-		// TODO Auto-generated method stub
 		endlose.draw(0,0);
 		playagainB.draw(384,570);
 		menuB.draw(456,625);
@@ -71,11 +67,10 @@ public class Endlose extends BasicGameState {
 	}
 
 	/**
-	 * Update is used for manoeuvring the mouse on the screen and clicking on the menu or play again, working like a button
+	 * Update is used for maneuvering the mouse on the screen and clicking on the menu or play again, working like a button
 	 */
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta)throws SlickException {
-		// TODO Auto-generated method stub
 		int posMouseX = Mouse.getX();
 		int posMouseY = Mouse.getY();
 		
@@ -109,7 +104,6 @@ public class Endlose extends BasicGameState {
      */
 	@Override
 	public int getID() {
-		// TODO Auto-generated method stub
 		return 3;
 	}
 

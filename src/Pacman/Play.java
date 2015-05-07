@@ -1,11 +1,7 @@
 package Pacman;
  
 import org.newdawn.slick.*;
-import org.newdawn.slick.geom.Rectangle;
-import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.state.*;
-import org.newdawn.slick.util.pathfinding.AStarPathFinder;
-import org.newdawn.slick.util.pathfinding.Path;
 
 import java.awt.Font;
 import java.io.InputStream;
@@ -14,32 +10,24 @@ import org.newdawn.slick.util.ResourceLoader;
  
 public class Play extends BasicGameState {
        
-        Player player;
-        Enemy ghost[] = new Enemy[4];
-        Level collisionLevel;
-        Level coinLevel;
-        Image coin;
-        Image powerUp;
-        TrueTypeFont font2;
-        Score score = new Score();
-        Image pacmanpic;
-        Image livespic;
-        Image scorepic;
+        Player player;//create player
+        Enemy ghost[] = new Enemy[4];//create all enemies
+        Level collisionLevel;//create the collision level
+        Level coinLevel;//create the coin level
+        Image coin;//image of coin
+        Image powerUp;//image of power-up
+        TrueTypeFont font2;//New font
+        Score score = new Score();//make an instance of the Score class
+        Image pacmanpic;//pacman image
+        Image livespic;//lives image
+        Image scorepic;//score image
        
-        long startupTime;
-    	int startupDelay;
-    	long runningTime;
-    	int aniTime;
-    	boolean dieani;
-       
-       
-        private static final int MAX_PATH_LENGTH = 100;
-        Path path;
-        AStarPathFinder pathFinder;
-        SimpleMap map;
-        int mover;
-        Shape[] test = new Rectangle[MAX_PATH_LENGTH];
-   
+        long startupTime;//time for startup
+    	int startupDelay;//the delay for startup
+    	long runningTime;//the time for death animation
+    	int aniTime;//the delay for death animation
+    	boolean dieani;//if death animation has been run
+         
         /**
          * play state 
          * @param state the integer: The state
@@ -125,19 +113,19 @@ public class Play extends BasicGameState {
                     font2 = new TrueTypeFont(awtFont2, false);
                          
                 } catch (Exception e) {
-                    System.out.println("Could not create font!");
+                    System.out.println("Could not create font!");//if the font could not be created, print.
                 }
     }  
        
         /**
-         * Used for drawing the coins around the map with a distance of a hitbox <br>
-         * Used also for drawing and setting up the powerups <br>
+         * Used for drawing the coins around the map <br>
          * Sets up the size and placement of the GUI
          * The commented part makes the path of the ghost visible with the matching color to the ghost (e.g. red ghost, red path, etc.)
          */
         @Override
         public void render(GameContainer gc, StateBasedGame sbg, Graphics g)throws SlickException{
-                collisionLevel.GetMap().render(0,0);
+                collisionLevel.GetMap().render(0,0);//set the map on screen
+                //draw the coins
                 for(int x = 0; x<coinLevel.GetWidth();x++){
                         for(int y = 0; y<coinLevel.GetHeight();y++){
                                 if(coinLevel.GetBlocked()[x][y]){
@@ -145,34 +133,36 @@ public class Play extends BasicGameState {
                                 }
                         }
                 }
+                //draw all the sprites
                 ghost[0].GetSprite().draw(ghost[0].GetPosX(),ghost[0].GetPosY());
                 ghost[1].GetSprite().draw(ghost[1].GetPosX(),ghost[1].GetPosY());
                 ghost[2].GetSprite().draw(ghost[2].GetPosX(),ghost[2].GetPosY());
                 ghost[3].GetSprite().draw(ghost[3].GetPosX(),ghost[3].GetPosY());
                 player.GetSprite().draw(player.GetPosX(),player.GetPosY());
-                //g.drawString("SCORE: "+player.GetScore(),27*32,13*32);
                 
+                //draw the gui
                 font2.drawString(880, 365, ""+player.getLives(), Color.white);
                 font2.drawString(855, 435, ""+player.GetScore(), Color.white);
                 pacmanpic.draw(40, 365);
                 livespic.draw(840, 335);
                 scorepic.draw(830, 410);
                
-                /*for(int i = 0; i < ghost1.getPathLenght(); i++) {
+                //Uncomment this to see the path of all the ghosts, and pacman
+               /* for(int i = 0; i < ghost[0].getPathLenght(); i++) {
                         g.setColor(Color.red);
-                        g.draw(ghost1.getPathHitbox()[i]);
+                        g.draw(ghost[0].getPathHitbox()[i]);
         }
-                for(int i = 0; i<ghost2.getPathLenght();i++){
+                for(int i = 0; i<ghost[1].getPathLenght();i++){
                         g.setColor(Color.cyan);
-                        g.draw(ghost2.getPathHitbox()[i]);
+                        g.draw(ghost[1].getPathHitbox()[i]);
                 }
-                for(int i = 0; i<ghost3.getPathLenght();i++){
+                for(int i = 0; i<ghost[2].getPathLenght();i++){
                         g.setColor(Color.orange);
-                        g.draw(ghost3.getPathHitbox()[i]);
+                        g.draw(ghost[2].getPathHitbox()[i]);
                 }
-                for(int i = 0; i<ghost4.getPathLenght();i++){
+                for(int i = 0; i<ghost[3].getPathLenght();i++){
                         g.setColor(Color.pink);
-                        g.draw(ghost4.getPathHitbox()[i]);
+                        g.draw(ghost[4].getPathHitbox()[i]);
                 }
                 for(int i = 0; i<player.getPathLenght();i++){
                         g.setColor(Color.yellow);
@@ -183,95 +173,98 @@ public class Play extends BasicGameState {
        
        
         /**
-         * Update updates different values
+         * Update: updates different values for e.g. movement and sprites depending on the delta time
          */
         @Override
         public void update(GameContainer gc, StateBasedGame sbg, int delta)throws SlickException{
                
+        	 //wait for the startup to be finished
         	 if(startupTime>startupDelay){
-                 ghost[0].movePath(collisionLevel);
-                 ghost[0].Move(delta, gc.getHeight(), gc.getWidth());
-                 ghost[0].GetSprite().update(delta);
+                 ghost[0].movePath(collisionLevel);//Update the ghost path
+                 ghost[0].Move(delta, gc.getHeight(), gc.getWidth());//move the ghost on the path
+                 ghost[0].GetSprite().update(delta);//update the sprite to animate depending on delta time
                  }
-                
+        	 //wait for the startup to be finished
                  if(startupTime>startupDelay){
-                 ghost[1].movePath(collisionLevel);
-                 ghost[1].Move(delta, gc.getHeight(), gc.getWidth());
-                 ghost[1].GetSprite().update(delta);
+                 ghost[1].movePath(collisionLevel);//Update the ghost path
+                 ghost[1].Move(delta, gc.getHeight(), gc.getWidth());//move the ghost on the path
+                 ghost[1].GetSprite().update(delta);//update the sprite to animate depending on delta time
                  }
-                
+               //wait for the startup to be finished
                  if(startupTime>startupDelay){
-                 ghost[2].movePath(collisionLevel);
-                 ghost[2].Move(delta, gc.getHeight(), gc.getWidth());
-                 ghost[2].GetSprite().update(delta);
+                 ghost[2].movePath(collisionLevel);//Update the ghost path
+                 ghost[2].Move(delta, gc.getHeight(), gc.getWidth());//move the ghost on the path
+                 ghost[2].GetSprite().update(delta);//update the sprite to animate depending on delta time
                  }
-                
+               //wait for the startup to be finished
                  if(startupTime>startupDelay){
-                 ghost[3].movePath(collisionLevel);
-                 ghost[3].Move(delta, gc.getHeight(), gc.getWidth());
-                 ghost[3].GetSprite().update(delta);
+                 ghost[3].movePath(collisionLevel);//Update the ghost path
+                 ghost[3].Move(delta, gc.getHeight(), gc.getWidth());//move the ghost on the path
+                 ghost[3].GetSprite().update(delta);//update the sprite to animate depending on delta time
                  }
                 
-                 if(runningTime>aniTime&&startupTime>startupDelay){
-                 player.movePath(collisionLevel);
-                 player.Move(delta,gc.getHeight(),gc.getWidth());
+                 if(runningTime>aniTime&&startupTime>startupDelay){//wait for startup to be finished and pacman to have finished dying
+                 player.movePath(collisionLevel);//update the player move path
+                 player.Move(delta,gc.getHeight(),gc.getWidth());//move the player on the path
                  }
-                 player.GetSprite().update(delta);
+                 player.GetSprite().update(delta);//update the player sprite to animate depending on delta time
                 
-                 Input input = gc.getInput();
-                 if(input.isKeyPressed(Input.KEY_UP)&&runningTime>aniTime&&startupTime>startupDelay){
-                         player.GoStepUp(coinLevel.GetMap(),coinLevel.GetIndexLayer());
-                         player.SetSprite(player.GetAniUp());
-                 }else if(input.isKeyPressed(Input.KEY_DOWN)&&runningTime>aniTime&&startupTime>startupDelay){
-                         player.GoStepDown(coinLevel.GetMap(),coinLevel.GetIndexLayer());
-                         player.SetSprite(player.GetAniDown());
-                 }else if(input.isKeyPressed(Input.KEY_LEFT)&&runningTime>aniTime&&startupTime>startupDelay){
-                         player.GoStepLeft(coinLevel.GetMap(),coinLevel.GetIndexLayer());
-                         player.SetSprite(player.GetAniLeft());
-                 }else if(input.isKeyPressed(Input.KEY_RIGHT)&&runningTime>aniTime&&startupTime>startupDelay){
-                         player.GoStepRight(coinLevel.GetMap(),coinLevel.GetIndexLayer());
-                         player.SetSprite(player.GetAniRight());
+                 Input input = gc.getInput();//get user-input
+                 if(input.isKeyPressed(Input.KEY_UP)&&runningTime>aniTime&&startupTime>startupDelay){//if up key pressed and wait for start up to be finished and pacman to have finished dying
+                         player.GoStepUp(coinLevel.GetMap(),coinLevel.GetIndexLayer());//make the player path 1 step up
+                         player.SetSprite(player.GetAniUp());//set the animation of pacman to up
+                 }else if(input.isKeyPressed(Input.KEY_DOWN)&&runningTime>aniTime&&startupTime>startupDelay){//if down key pressed and wait for start up to be finished and pacman to have finished dying
+                         player.GoStepDown(coinLevel.GetMap(),coinLevel.GetIndexLayer());//make the player path 1 step down
+                         player.SetSprite(player.GetAniDown());//set the animation of pacman to down
+                 }else if(input.isKeyPressed(Input.KEY_LEFT)&&runningTime>aniTime&&startupTime>startupDelay){//if left key pressed and wait for start up to be finished and pacman to have finished dying
+                         player.GoStepLeft(coinLevel.GetMap(),coinLevel.GetIndexLayer());//make the player path 1 step left
+                         player.SetSprite(player.GetAniLeft());//set the animation of pacman to left
+                 }else if(input.isKeyPressed(Input.KEY_RIGHT)&&runningTime>aniTime&&startupTime>startupDelay){//if right key pressed and wait for start up to be finished and pacman to have finished dying
+                         player.GoStepRight(coinLevel.GetMap(),coinLevel.GetIndexLayer());//make the player path 1 step right
+                         player.SetSprite(player.GetAniRight());//set the animation of pacman to right
                  }
-                
+                //go through the level
                  for(int x = 0; x<coinLevel.GetWidth();x++){
                          for(int y = 0; y<coinLevel.GetHeight();y++){
+                        	 //if player hitbox hits any coin hitbox
                                  if(player.getHitBox().contains(coinLevel.GetHitbox()[x][y].getCenterX(), coinLevel.GetHitbox()[x][y].getCenterY())){
                                          if(coinLevel.GetBlocked()[x][y]){
-                                                 coinLevel.playSound();
-                                                 player.SetScore(10);
-                                                 player.SetCoinsEaten(1);
+                                                 coinLevel.playSound();//play the coin sound
+                                                 player.SetScore(10);//plus the scores with 10
+                                                 player.SetCoinsEaten(1);//plus the coins eaten with 1
                                          }
-                                         coinLevel.SetBlocked(x, y, false);
+                                         coinLevel.SetBlocked(x, y, false);//if a coin has been taken, delete it
                                  }
                          }
                  }
-                
+                //go through all ghosts
                  for(int i = 0; i<ghost.length;i++){
+                	 //if player hits any ghost
                          if(player.getHitBox().contains(ghost[i].getHitBox().getCenterX(),ghost[i].getHitBox().getCenterY())&&runningTime>aniTime){
-                                 player.die();
-                                 player.SetScore(-200);
-                                 player.SetSprite(player.getDieAni());
-                                 runningTime = 0;
-                                 dieani = true;
+                                 player.die();//-1 live
+                                 player.SetScore(-250);//minus the score with 250
+                                 player.SetSprite(player.getDieAni());//sets the player animation to the die animation
+                                 runningTime = 0;//start over the timer
+                                 dieani = true;//and set the die animation to true
                                 
                          }
                  }
-                 runningTime +=delta;
-                 startupTime +=delta;
-                 if(dieani&&runningTime>aniTime){
-                         player.SetSprite(player.GetAniRight());
+                 runningTime +=delta; //increment the timer
+                 startupTime +=delta; //increment the timer
+                 if(dieani&&runningTime>aniTime){ //if the player is not in a die state
+                         player.SetSprite(player.GetAniRight());//set the player sprite to right
                          dieani = false;
                  }        
-                if(player.DEAD()){
-                	Score.setScore(player.GetScore());
-                	init(gc,sbg);
-                        sbg.enterState(3);
+                if(player.DEAD()){//if there is no more lives
+                	Score.setScore(player.GetScore());//Set the global score to the score you have
+                	init(gc,sbg); //reset the play state
+                        sbg.enterState(3); //go into the lose state
                 }
                
-                if(player.WIN()){
-                	Score.setScore(player.GetScore());
-                	init(gc,sbg);
-                        sbg.enterState(2);
+                if(player.WIN()){//if there is no more coins
+                	Score.setScore(player.GetScore());//Set the global score to the score you have
+                	init(gc,sbg);//reset the play state
+                        sbg.enterState(2);//go into the win state
                 }
         }
        
