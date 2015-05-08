@@ -73,7 +73,7 @@ public class Play extends BasicGameState {
                 player.SetAniDown("data/pacman/PacmanDown1.png", "data/pacman/PacmanDown2.png", "data/pacman/PacmanBallUpDown.png");
                 player.SetAniLeft("data/pacman/PacmanLeft1.png","data/pacman/PacmanLeft2.png","data/pacman/PacmanBallLeftRight.png");
                 player.SetAniRight("data/pacman/PacmanRight1.png", "data/pacman/PacmanRight2.png", "data/pacman/PacmanBallLeftRight.png");
-                player.SetDieAni("data/pacman/die/PacmanDie1.png", "data/pacman/die/PacmanDie2.png", "data/pacman/die/PacmanDie3.png", "data/pacman/die/PacmanDie4.png", "data/pacman/die/PacmanDie5.png", "data/pacman/die/PacmanDie6.png", "data/pacman/die/PacmanDie7.png", "data/pacman/die/PacmanDie8.png", "data/pacman/die/PacmanDie9.png", "data/pacman/die/PacmanDie10.png", "data/pacman/die/PacmanDie11.png", "data/pacman/die/PacmanDie12.png", 200);
+                player.SetDieAni("data/pacman/Die/PacmanDie1.png", "data/pacman/Die/PacmanDie2.png", "data/pacman/Die/PacmanDie3.png", "data/pacman/Die/PacmanDie4.png", "data/pacman/Die/PacmanDie5.png", "data/pacman/Die/PacmanDie6.png", "data/pacman/Die/PacmanDie7.png", "data/pacman/Die/PacmanDie8.png", "data/pacman/Die/PacmanDie9.png", "data/pacman/Die/PacmanDie10.png", "data/pacman/Die/PacmanDie11.png", "data/pacman/Die/PacmanDie12.png", 200);
                 player.SetSprite(player.GetAniRight());
                 player.SetPath(collisionLevel);
                

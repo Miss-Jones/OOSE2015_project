@@ -40,6 +40,7 @@ public class Game extends StateBasedGame {
 		this.getState(endwin).init(gc,this);
 		this.getState(endlose).init(gc,this);
 		this.enterState(menu);
+		gc.setShowFPS(false);
 		
 	}
 	
